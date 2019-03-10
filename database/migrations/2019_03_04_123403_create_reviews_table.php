@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration
             $table->string('rating');
             $table->string('image_path');
             $table->string('vehicle');
+            $table->string('coordinates');
         });
     }
 
