@@ -12,7 +12,7 @@ class SearchController extends Controller
         $id = $request->input('id');
         $message = $request->input('message');
 
-        $reviews = Review::where('id', 'like', '%' . $id . '%')->orWhere('message', 'like', '%' . $reviews . '%')->get();
+        $reviews = Review::where('id', 'like', '%' . $id . '%')->where('message', 'like', '%' . $message . '%')->get();
 
         return view('reviews.index')->with('reviews', $reviews);
         }
