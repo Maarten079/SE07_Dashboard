@@ -9,5 +9,21 @@
     @else
         journey not found
     @endif
-    <br>
+
+    <hr>
+
+    <h2>Reviews for this journey:</h2>
+
+    <?php
+    use App\Review;
+    $reviews = Review::with('journey')->where('journey', 'like', $journey->id)->get();
+    ?>
+
+    @foreach($reviews as $review)
+        <div class="well">
+            <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
+            <small>Created on {{$review->created_at}}</small>
+            <hr>
+        </div>
+    @endforeach
 @endsection
