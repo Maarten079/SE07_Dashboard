@@ -19,4 +19,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('reviews', 'ReviewsController');
 
-Route::post('/search', 'SearchController@filter');
+Route::resource('journeys', 'JourneysController');
+
+Route::post('/search-reviews', 'SearchController@filterReviews');
+
+Route::post('/search-journey', 'SearchController@filterJourneys');

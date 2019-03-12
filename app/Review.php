@@ -11,6 +11,6 @@ class Review extends Model
 
     public function journey()
     {
-        return $this->hasOne('App\Journey');
+        return $this->belongsTo('App\Journey');
     }
 }

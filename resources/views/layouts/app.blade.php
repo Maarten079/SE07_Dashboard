@@ -38,8 +38,11 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                         <li class="nav-item">
-                                <a class="nav-link" href="/reviews">Reviews</a>
-                            </li>
+                            <a class="nav-link" href="/reviews">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/journeys">Journeys</a>
+                        </li>
                         @endauth
                     </ul>
 

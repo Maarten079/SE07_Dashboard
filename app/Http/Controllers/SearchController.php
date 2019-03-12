@@ -7,7 +7,7 @@ use App\Review;
 
 class SearchController extends Controller
 {
-    public function filter(Request $request, Review $reviews){
+    public function filterReviews(Request $request, Review $reviews){
         $id = $request->input('id');
         $message = $request->input('message');
         $date = $request->input('date');
@@ -18,4 +18,12 @@ class SearchController extends Controller
 
         return view('reviews.index')->with('reviews', $reviews);
         }
+
+        public function filterJourneys(Request $request, Review $journeys){
+            $id = $request->input('id');
+
+            $journeys = Review::where('id', 'like', '%' . $id . '%')->get();
+    
+            return view('journeys.index')->with('journeys', $journeys);
+            }
 }

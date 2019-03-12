@@ -17,10 +17,6 @@ class CreateJourneysTable extends Migration
             $table->increments('id');
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-
-            // Foreign key constraint definition for database.
-            $table->unsignedInteger('review');
-            $table->foreign('review')->references('id')->on('reviews')->onDelete('cascade');
         });
     }
 

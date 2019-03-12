@@ -12,7 +12,7 @@
 
     <div class="collapse mb-3" id="collapseFilters">
         <div class="card card-body">
-            <form action="{{url('/search')}}" method="POST" class="mb-3">
+            <form action="{{url('/search-reviews')}}" method="POST" class="mb-3">
                 @csrf
                 <div class="form-group">
                     <label for="idInput">id:</label>

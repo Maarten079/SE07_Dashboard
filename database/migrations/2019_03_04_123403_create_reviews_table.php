@@ -22,6 +22,10 @@ class CreateReviewsTable extends Migration
             $table->string('image_path');
             $table->string('vehicle');
             $table->string('coordinates');
+
+            // Foreign key constraint definition for database.
+            $table->unsignedInteger('journey');
+            $table->foreign('journey')->references('id')->on('journeys');
         });
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Journey extends Model
 {
-    public function reviews()
+    public function review()
     {
         return $this->hasMany('App\Review');
     }
