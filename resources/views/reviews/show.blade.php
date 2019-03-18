@@ -12,7 +12,7 @@
         <small>img:</small>
         <p>{{$review->image_path}}</p>
         <small>vehicle:</small>
-        <p>{{$review->vehicle}}</p>
+        <p>{{$review->vehicle_id}}</p>
         <small>coordinates:</small>
         <p>{{$review->coordinates}}</p>
         <small>Created on {{$review->created_at}}</small>
