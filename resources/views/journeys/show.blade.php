@@ -4,10 +4,10 @@
     <a class="btn btn-default" href="/journeys" role="button">Return</a>
     <hr>
     @if(!is_null($journey))
-        <h1>journey ID: {{$journey->id}}</h1>
-        <small>Created on {{$journey->created_at}}</small>
+        <h1>Journey ID: {{$journey->id}}</h1>
+        <small>Journey date and time: {{$journey->journey_date}}</small>
     @else
-        journey not found
+        Journey not found.
     @endif
 
     <hr>
@@ -16,7 +16,7 @@
 
     <?php
     use App\Review;
-    $reviews = Review::with('journey')->where('journey', 'like', $journey->id)->get();
+    $reviews = Review::with('journey')->where('journey_id', 'like', $journey->id)->get();
     ?>
 
     @foreach($reviews as $review)

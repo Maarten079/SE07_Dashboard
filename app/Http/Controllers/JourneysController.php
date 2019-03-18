@@ -50,14 +50,8 @@ class JourneysController extends Controller
     public function show($id)
     {
         $journey = Journey::find($id);
-        return view('journeys.show')->with('journey', $journey);
-        
-        /*
-        $reviews = DB::table('reviews')->where('journey', '=', $id)->get();
-        dd($reviews);
 
-        return view('journey.show')->with($)
-        */
+        return view('journeys.show')->with('journey', $journey);
     }
 
     /**

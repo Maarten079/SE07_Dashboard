@@ -8,7 +8,7 @@ class PagesController extends Controller
 {
     public function index()
     {
-        $title = "Welcome to the user reponse dashboard!";
+        $title = "Welcome to the user response dashboard!";
         return view('pages.index')->with('title', $title);
     }
 }
