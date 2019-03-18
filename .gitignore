@@ -43,6 +43,9 @@ Homestead.json
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml
+.idea/**/encodings.xml
+.idea/**/php.xml
+.idea/**/vcs.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
