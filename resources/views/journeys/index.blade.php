@@ -32,6 +32,6 @@
             </div>
         @endforeach
     @else
-        <p>No reviews found</p>
+        <p>No journeys found</p>
     @endif
 @endsection
