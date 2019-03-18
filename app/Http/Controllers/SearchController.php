@@ -21,7 +21,7 @@ class SearchController extends Controller
         }
 
         public function filterJourneys(Request $request, Review $journeys){
-            $journeys = Journey::where('id', 'like', '%' . $request->input('id') . '%')->get();
+            $journeys = Journey::where('id', 'like', '%' . $request->input('id') . '%')->where('journeynumber', 'like', '%' . $request->input('journey') . '%')->where('journey_date', 'like', '%' . $request->input('date') . '%')->where('lineplanningnumber', 'like', '%' . $request->input('line') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%')->get();
 
             return view('journeys.index')->with('journeys', $journeys);
             }
