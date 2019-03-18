@@ -47,6 +47,7 @@
 @if(count($reviews) > 0) @foreach($reviews as $review)
 <div class="well">
     <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
+    <br>
     <small>Created on {{$review->created_at}}</small>
     <br>
     <small>rating: {{$review->rating}}</small>
