@@ -1,14 +1,14 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('content')
-    <h1>
-        Latest reviews
-    </h1>
-    <p>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
+<h1>
+    Latest reviews
+</h1>
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false"
+        aria-controls="collapseFilters">
         Filters
         </button>
-    </p>
+</p>
 
     <div class="collapse mb-3" id="collapseFilters">
         <div class="card card-body">
@@ -38,21 +38,27 @@
                         <option>Neutral</option>
                         <option>Bad</option>
                     </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-    
-    @if(count($reviews) > 0)
-        @foreach($reviews as $review)
-            <div class="well">
-                <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
-                <small>Created on {{$review->created_at}}</small>
-                <hr>
             </div>
-        @endforeach
-    @else
-        <p>No reviews found</p>
-    @endif
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+@if(count($reviews) > 0) @foreach($reviews as $review)
+<div class="well">
+    <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
+    <small>Created on {{$review->created_at}}</small>
+    <br>
+    <small>rating: {{$review->rating}}</small>
+    <br>
+    <small>img: {{$review->image_path}}</small>
+    <br>
+    <small>vehicle: {{$review->vehicle_id}}</small>
+    <br>
+    <small>coordinates: {{$review->coordinates}}</small>
+    <hr>
+</div>
+@endforeach @else
+<p>No reviews found</p>
+@endif
 @endsection

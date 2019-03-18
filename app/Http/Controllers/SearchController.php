@@ -8,14 +8,8 @@ use App\Journey;
 
 class SearchController extends Controller
 {
-    public function filterReviews(Request $request, Review $reviews){
-        $id = $request->input('id');
-        $message = $request->input('message');
-        $date = $request->input('date');
-        $rating = $request->input('rating');
-        $vehicle = $request->input('vehicle');
-
-        $reviews = Review::where('id', 'like', '%' . $id . '%')->where('message', 'like', '%' . $message . '%')->where('created_at', 'like', '%' . $date . '%')->where('rating', 'like', '%' . $rating . '%')->where('vehicle_id', 'like', '%' . $vehicle . '%')->get();
+    public function filter(Request $request, Review $reviews){
+        $reviews = Review::where('id', 'like', '%' . $request->input('id') . '%')->where('message', 'like', '%' . $request->input('message') . '%')->where('created_at', 'like', '%' . $request->input('date') . '%')->where('rating', 'like', '%' . $request->input('rating') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%')->get();
 
         return view('reviews.index')->with('reviews', $reviews);
         }
