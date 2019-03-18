@@ -16,18 +16,19 @@
                 @csrf
                 <div class="form-group">
                     <label for="idInput">id:</label>
-                    <input class="form-control mb-3" id="idInput" name="id" placeholder="review id">
+                    <input class="form-control mb-3" id="idInput" name="id" placeholder="journey id">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
     
-    @if(count($journeys) > 0)
+    @if(!is_null($journeys))
         @foreach($journeys as $journey)
             <div class="well">
                 <a href="/journeys/{{$journey->id}}">{{$journey->id}}</a></h3>
-                <small>Created on {{$journey->created_at}}</small>
+                <br>
+                <small>Journey date and time: {{$journey->journey_date}}</small>
                 <hr>
             </div>
         @endforeach

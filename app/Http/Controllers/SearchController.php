@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Review;
+use App\Journey;
 
 class SearchController extends Controller
 {
@@ -14,16 +15,14 @@ class SearchController extends Controller
         $rating = $request->input('rating');
         $vehicle = $request->input('vehicle');
 
-        $reviews = Review::where('id', 'like', '%' . $id . '%')->where('message', 'like', '%' . $message . '%')->where('created_at', 'like', '%' . $date . '%')->where('rating', 'like', '%' . $rating . '%')->where('vehicle', 'like', '%' . $vehicle . '%')->get();
+        $reviews = Review::where('id', 'like', '%' . $id . '%')->where('message', 'like', '%' . $message . '%')->where('created_at', 'like', '%' . $date . '%')->where('rating', 'like', '%' . $rating . '%')->where('vehicle_id', 'like', '%' . $vehicle . '%')->get();
 
         return view('reviews.index')->with('reviews', $reviews);
         }
 
         public function filterJourneys(Request $request, Review $journeys){
-            $id = $request->input('id');
+            $journeys = Journey::where('id', 'like', '%' . $request->input('id') . '%')->get();
 
-            $journeys = Review::where('id', 'like', '%' . $id . '%')->get();
-    
             return view('journeys.index')->with('journeys', $journeys);
             }
 }
