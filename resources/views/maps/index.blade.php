@@ -14,6 +14,8 @@ function initMap() {
   var map = new google.maps.Map(
       document.getElementById('map'), {zoom: 11, center: mapCenter});
 
+      var infowindow = new google.maps.InfoWindow();
+
       @foreach($reviews as $review)
         @if(!is_null($review->lat) && !is_null($review->lng))
 
@@ -38,15 +40,27 @@ function initMap() {
       '</div>'+
       '</div>';
 
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
           // The marker, positioned at Uluru
           var coords = {lat: {{$review->lat}}, lng: {{$review->lng}}}
-          var marker = new google.maps.Marker({position: coords, map: map, label:"{{$review->rating}}"});
+          var icon = {
+                        url: "", // url
+                        scaledSize: new google.maps.Size(32, 32), // scaled size
+                        origin: new google.maps.Point(0,0), // origin
+                        anchor: new google.maps.Point(16, 32) // anchor
+                      };
+          @if($review->rating == 0)
+              icon.url = "http://maps.google.com/mapfiles/kml/paddle/red-blank.png";
+          @elseif ($review->rating == 1)
+              icon.url = "http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png";
+          @elseif ($review->rating == 2)
+              icon.url = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
+          @endif
+          var marker = new google.maps.Marker({position: coords, map: map, icon:icon, info: contentString});
           marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
+            infowindow.close();
+            infowindow.setContent(this.info);
+            infowindow.open(map, this);
+          });
         @else
           console.log('We found a review without coords!');
         @endif
