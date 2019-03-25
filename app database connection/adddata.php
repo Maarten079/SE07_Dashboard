@@ -1,8 +1,8 @@
 <?php
 include 'conn.php';
 
-$message='message';
-$rating='rating';
+$message=$_POST['message'];
+$rating=$_POST['rating'];
 $image_path='test';
 $vehicle='test';
 $coordinates='test';
