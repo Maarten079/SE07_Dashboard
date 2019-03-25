@@ -1,0 +1,65 @@
+@extends('layouts.maps-app') 
+@section('content')
+<h1>
+  Map
+</h1>
+<!--The div element for the map -->
+<div id="map"></div>
+<script>
+  // Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var mapCenter = {lat: 52.07667, lng: 4.4};
+  // The map, centered at The Hague
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 11, center: mapCenter});
+
+      @foreach($reviews as $review)
+        @if(!is_null($review->lat) && !is_null($review->lng))
+
+        // Info Window content
+        var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"><a href="/reviews/{{$review->id}}">{{$review->id}}</a></h1>'+
+      '<div id="bodyContent">'+
+      '<p></h1>'+
+        '<small>message:</small>' +
+        '<p>{{$review->message}}</p>' +
+        '<small>rating:</small>' +
+        '<p>{{$review->rating}}</p>' +
+        '<small>img:</small>' +
+        '<p>{{$review->image_path}}</p>' +
+        '<small>vehicle:</small>' +
+        '<p>{{$review->vehicle}}</p>' +
+        '<small>coordinates:</small>' +
+        '<p>{{$review->lat}} , {{$review->lng}}</p>' +
+        '<small>Created on {{$review->created_at}}</small></p>' +
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+          // The marker, positioned at Uluru
+          var coords = {lat: {{$review->lat}}, lng: {{$review->lng}}}
+          var marker = new google.maps.Marker({position: coords, map: map, label:"{{$review->rating}}"});
+          marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+        @else
+          console.log('We found a review without coords!');
+        @endif
+      @endforeach
+}
+
+</script>
+<!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9ethpWULYDFKzlNbaCLfj3iWhmRj41FI&callback=initMap">
+
+</script>
+@endsection
