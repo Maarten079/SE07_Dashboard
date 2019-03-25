@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('reviews', 'ReviewsController');
+
+Route::resource('journeys', 'JourneysController');
+
+Route::resource('maps', 'MapsController');
+
+Route::post('/search-reviews', 'SearchController@filterReviews');
+
+Route::post('/search-journey', 'SearchController@filterJourneys');
