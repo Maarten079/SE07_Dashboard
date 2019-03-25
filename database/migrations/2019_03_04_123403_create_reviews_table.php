@@ -19,13 +19,14 @@ class CreateReviewsTable extends Migration
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->string('message');
             $table->string('rating');
-            $table->string('image_path');
-            $table->string('vehicle');
-            $table->string('coordinates');
+            $table->string('img_path');
+            $table->string('vehicle_id');
+            $table->decimal('lat');
+            $table->decimal('lng');
 
             // Foreign key constraint definition for database.
-            $table->unsignedInteger('journey');
-            $table->foreign('journey')->references('id')->on('journeys');
+            $table->unsignedInteger('journey_id');
+            $table->foreign('journey_id')->references('id')->on('journeys');
         });
     }
 
