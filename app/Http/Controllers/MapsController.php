@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Review;
 
 class MapsController extends Controller
 {
@@ -13,7 +14,8 @@ class MapsController extends Controller
      */
     public function index()
     {
-        return view('maps.index');
+        $reviews = Review::all();
+        return view('maps.index')->with('reviews', $reviews);
     }
 
     /**

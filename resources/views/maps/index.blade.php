@@ -1,79 +1,65 @@
 @extends('layouts.maps-app') 
 @section('content')
-<div id="map" class="map"></div>
+<h1>
+  Map
+</h1>
+<!--The div element for the map -->
+<div id="map"></div>
 <script>
-    import Feature from 'ol/Feature.js';
-  import Map from 'ol/Map.js';
-  import View from 'ol/View.js';
-  import Point from 'ol/geom/Point.js';
-  import Select from 'ol/interaction/Select.js';
-  import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer.js';
-  import Stamen from 'ol/source/Stamen.js';
-  import VectorSource from 'ol/source/Vector.js';
-  import {Icon, Style} from 'ol/style.js';
+  // Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var mapCenter = {lat: 52.07667, lng: 4.29861};
+  // The map, centered at The Hague
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: mapCenter});
 
+      @foreach($reviews as $review)
+        @if(!is_null($review->lat) && !is_null($review->lng))
 
-  function createStyle(src, img) {
-    return new Style({
-      image: new Icon(/** @type {module:ol/style/Icon~Options} */ ({
-        anchor: [0.5, 0.96],
-        crossOrigin: 'anonymous',
-        src: src,
-        img: img,
-        imgSize: img ? [img.width, img.height] : undefined
-      }))
-    });
-  }
+        // Info Window content
+        var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"><a href="/reviews/{{$review->id}}">{{$review->id}}</a></h1>'+
+      '<div id="bodyContent">'+
+      '<p></h1>'+
+        '<small>message:</small>' +
+        '<p>{{$review->message}}</p>' +
+        '<small>rating:</small>' +
+        '<p>{{$review->rating}}</p>' +
+        '<small>img:</small>' +
+        '<p>{{$review->image_path}}</p>' +
+        '<small>vehicle:</small>' +
+        '<p>{{$review->vehicle}}</p>' +
+        '<small>coordinates:</small>' +
+        '<p>{{$review->lat}} , {{$review->lng}}</p>' +
+        '<small>Created on {{$review->created_at}}</small></p>' +
+      '</div>'+
+      '</div>';
 
-  var iconFeature = new Feature(new Point([0, 0]));
-  iconFeature.set('style', createStyle('data/icon.png', undefined));
-
-  var map = new Map({
-    layers: [
-      new TileLayer({
-        source: new Stamen({layer: 'watercolor'})
-      }),
-      new VectorLayer({
-        style: function(feature) {
-          return feature.get('style');
-        },
-        source: new VectorSource({features: [iconFeature]})
-      })
-    ],
-    target: document.getElementById('map'),
-    view: new View({
-      center: [0, 0],
-      zoom: 3
-    })
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
   });
-
-  var selectStyle = {};
-  var select = new Select({
-    style: function(feature) {
-      var image = feature.get('style').getImage().getImage();
-      if (!selectStyle[image.src]) {
-        var canvas = document.createElement('canvas');
-        var context = canvas.getContext('2d');
-        canvas.width = image.width;
-        canvas.height = image.height;
-        context.drawImage(image, 0, 0, image.width, image.height);
-        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
-        for (var i = 0, ii = data.length; i < ii; i = i + (i % 4 == 2 ? 2 : 1)) {
-          data[i] = 255 - data[i];
-        }
-        context.putImageData(imageData, 0, 0);
-        selectStyle[image.src] = createStyle(undefined, canvas);
-      }
-      return selectStyle[image.src];
-    }
+          // The marker, positioned at Uluru
+          var coords = {lat: {{$review->lat}}, lng: {{$review->lng}}}
+          var marker = new google.maps.Marker({position: coords, map: map, label:"{{$review->rating}}"});
+          marker.addListener('click', function() {
+    infowindow.open(map, marker);
   });
-  map.addInteraction(select);
+        @else
+          console.log('We found a review without coords!');
+        @endif
+      @endforeach
+}
 
-  map.on('pointermove', function(evt) {
-    map.getTargetElement().style.cursor =
-        map.hasFeatureAtPixel(evt.pixel) ? 'pointer' : '';
-  });
+</script>
+<!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9ethpWULYDFKzlNbaCLfj3iWhmRj41FI&callback=initMap">
 
 </script>
 @endsection
