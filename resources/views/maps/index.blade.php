@@ -9,10 +9,10 @@
   // Initialize and add the map
 function initMap() {
   // The location of Uluru
-  var mapCenter = {lat: 52.07667, lng: 4.29861};
+  var mapCenter = {lat: 52.07667, lng: 4.4};
   // The map, centered at The Hague
   var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: mapCenter});
+      document.getElementById('map'), {zoom: 11, center: mapCenter});
 
       @foreach($reviews as $review)
         @if(!is_null($review->lat) && !is_null($review->lng))
