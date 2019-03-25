@@ -16,7 +16,7 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all();
+        $reviews = Review::orderBy('created_at', 'DESC')->paginate(15);
         return view('reviews.index')->with('reviews', $reviews);
     }
 

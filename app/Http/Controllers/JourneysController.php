@@ -16,7 +16,8 @@ class JourneysController extends Controller
      */
     public function index()
     {
-        $journeys = Journey::all();
+        $journeys = Journey::orderBy('journey_date', 'DESC')->paginate(15);
+
         return view('journeys.index')->with('journeys', $journeys);
     }
 

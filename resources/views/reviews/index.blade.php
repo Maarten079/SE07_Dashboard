@@ -38,28 +38,37 @@
                         <option>Neutral</option>
                         <option>Bad</option>
                     </select>
+                <div class="form-group">
+                    Search type:<br>
+                    <input type="radio" name="searchtype" value="guess" checked="true"> Guess<br>
+                    <input type="radio" name="searchtype" value="exact"> Exact<br>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>
 
-@if(count($reviews) > 0) @foreach($reviews as $review)
-<div class="well">
-    <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
-    <br>
-    <small>Created on {{$review->created_at}}</small>
-    <br>
-    <small>rating: {{$review->rating}}</small>
-    <br>
-    <small>img: {{$review->image_path}}</small>
-    <br>
-    <small>vehicle: {{$review->vehicle_id}}</small>
-    <br>
-    <small>coordinates: {{$review->coordinates}}</small>
-    <hr>
-</div>
-@endforeach @else
-<p>No reviews found</p>
+@if(!is_null($reviews))
+    @if(count($reviews) > 0) @foreach($reviews as $review)
+    <div class="well">
+        <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
+        <br>
+        <small>Created on {{$review->created_at}}</small>
+        <br>
+        <small>rating: {{$review->rating}}</small>
+        <br>
+        <small>img: {{$review->image_path}}</small>
+        <br>
+        <small>vehicle: {{$review->vehicle_id}}</small>
+        <br>
+        <small>coordinates: {{$review->coordinates}}</small>
+        <hr>
+    </div>
+    @endforeach 
+    {{ $reviews->links() }}
+    @else
+    <p>No reviews found</p>
+    @endif
 @endif
 @endsection
