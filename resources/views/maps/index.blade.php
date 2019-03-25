@@ -73,7 +73,7 @@ function initMap() {
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=KEY_INVULLEN&callback=initMap">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API', null)}}&callback=initMap">
 
 </script>
 @endsection
