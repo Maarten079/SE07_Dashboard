@@ -1,8 +1,8 @@
 <?php
 include 'conn.php';
 
-$message=$_POST['message'];
-$rating=$_POST['rating'];
+$message= mysqli_real_escape_string($conn,  $_POST['message']);
+$rating=mysqli_real_escape_string($conn, $_POST['rating']);
 $img_path='test';
 $journey_id=1;
 $vehicle_id=3116;
