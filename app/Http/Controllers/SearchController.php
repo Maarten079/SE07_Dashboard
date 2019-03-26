@@ -8,18 +8,29 @@ use App\Journey;
 
 class SearchController extends Controller
 {
-    public function filterReviews(Request $request, Review $reviews){
+    public function filterReviews(Request $request){
+        // Get the results where $request inputs appear in tupels and store it or them in $reviews
         if($request->input('searchtype') == "guess"){
             $reviews = Review::orderBy('created_at', 'DESC')->where('id', 'like', '%' . $request->input('id') . '%')->where('message', 'like', '%' . $request->input('message') . '%')->where('created_at', 'like', '%' . $request->input('date') . '%')->where('rating', 'like', '%' . $request->input('rating') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%')->paginate(15);
-        }else if($request->input('searchtype') == "exact"){
-            // TODO: Complete exact search functionality
-            $reviews = Review::orderBy('created_at', 'DESC')->where('id', 'like', '%' . $request->input('id') . '%')->where('message', 'like', '%' . $request->input('message') . '%')->where('created_at', 'like', '%' . $request->input('date') . '%')->where('rating', 'like', '%' . $request->input('rating') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%')->paginate(15);
-        }else{
-            Review::report($exception);
+        }
+        // Get the results where $request inputs exactly match in tupels and store it or them in $reviews
+        else if($request->input('searchtype') == "exact"){
+
+        if($request->input('id') !== NULL){
+            $reviews = Review::all()->where('id', $request->input('id'));
+        }
+        
+        if($request->input('message') !== NULL){
+            $reviews = $reviews->where('message', $request->input('message'));
         }
 
-        return view('reviews.index')->with('reviews', $reviews);
+            dd($reviews);
         }
+        else{
+            Review::report($exception);
+        }
+        return view('reviews.index')->with('reviews', $reviews);
+    }
 
         public function filterJourneys(Request $request, Journey $journeys){
             if($request->input('searchtype') == "guess"){
