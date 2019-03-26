@@ -26,3 +26,5 @@ Route::resource('maps', 'MapsController');
 Route::post('/search-reviews', 'SearchController@filterReviews');
 
 Route::post('/search-journeys', 'SearchController@filterJourneys');
+
+Route::post('/search-reviews-for-map', 'SearchController@filterReviewsForMap');

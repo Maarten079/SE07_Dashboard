@@ -3,6 +3,15 @@
 <h1>
   Map
 </h1>
+<form action="{{url('/search-reviews-for-map')}}" method="POST" class="mb-3">
+  @csrf
+  <div class="form-group">
+    <label for="dateInput">Show reviews since:</label>
+    <input class="form-control mb-3" id="dateInput" type="date" name="date">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>
+
 <!--The div element for the map -->
 <div id="map"></div>
 <script>
@@ -73,7 +82,7 @@ function initMap() {
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API', null)}}&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API', null)}}&callback=initMap">
 
 </script>
 @endsection

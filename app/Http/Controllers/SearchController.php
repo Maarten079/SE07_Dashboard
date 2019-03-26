@@ -21,7 +21,7 @@ class SearchController extends Controller
         return view('reviews.index')->with('reviews', $reviews);
         }
 
-        public function filterJourneys(Request $request, Review $journeys){
+        public function filterJourneys(Request $request, Journey $journeys){
             if($request->input('searchtype') == "guess"){
                 $journeys = Journey::orderBy('journey_date', 'DESC')->where('id', 'like', '%' . $request->input('id') . '%')->where('journeynumber', 'like', '%' . $request->input('journey') . '%')->where('journey_date', 'like', '%' . $request->input('date') . '%')->where('lineplanningnumber', 'like', '%' . $request->input('line') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%')->paginate(15);
             }else if($request->input('searchtype') == "exact"){
@@ -33,4 +33,9 @@ class SearchController extends Controller
 
             return view('journeys.index')->with('journeys', $journeys);
             }
+
+        public function filterReviewsForMap(Request $request, Review $reviews){
+            $reviews = Review::where('created_at', '>=', $request->input('date'))->get();
+            return view('maps.index')->with('reviews', $reviews);
+        }
 }
