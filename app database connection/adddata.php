@@ -12,6 +12,7 @@ $journey_query = mysqli_query($conn, "SELECT id
                           FROM `journeys`
                           WHERE vehicle_id = '$vehicle_id'
                           AND journey_date <= CURRENT_TIMESTAMP
+                          ORDER BY journey_date DESC 
                           LIMIT 1");
 
 $journey_row = mysqli_fetch_array($journey_query);
