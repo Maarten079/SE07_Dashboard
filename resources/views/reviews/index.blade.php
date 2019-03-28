@@ -50,25 +50,45 @@
 </div>
 
 @if(!is_null($reviews))
-    @if(count($reviews) > 0) @foreach($reviews as $review)
+    @foreach($reviews as $review)
     <div class="well">
-        <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
-        <br>
-        <small>Created on {{$review->created_at}}</small>
-        <br>
-        <small>rating: {{$review->rating}}</small>
-        <br>
-        <small>img: {{$review->image_path}}</small>
-        <br>
-        <small>vehicle: {{$review->vehicle_id}}</small>
-        <br>
-        <small>coordinates: {{$review->coordinates}}</small>
+        @if(isset($review->id))
+            <a href="/reviews/{{$review->id}}">{{$review->id}}</a></h3>
+            <br>
+        @endif
+
+        @if(isset($review->created_at))
+            <small>Created on {{$review->created_at}}</small>
+            <br>
+        @endif
+
+        @if(isset($review->rating))
+            <small>rating: {{$review->rating}}</small>
+            <br>
+        @endif
+
+        @if(isset($review->image_path))
+            <small>img: {{$review->image_path}}</small>
+            <br>
+        @endif
+
+        @if(isset($review->vehicle_id))
+            <small>vehicle: {{$review->vehicle_id}}</small>
+            <br>
+        @endif
+
+        @if(isset($review->lng))
+            <small>lng: {{$review->lng}}</small>
+        @endif
+        
+        @if(isset($review->lat))
+            <small>lat: {{$review->lat}}</small>
+        @endif
         <hr>
     </div>
     @endforeach 
     {{ $reviews->links() }}
     @else
     <p>No reviews found</p>
-    @endif
 @endif
 @endsection

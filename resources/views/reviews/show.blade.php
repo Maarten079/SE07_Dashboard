@@ -13,8 +13,8 @@
         <p>{{$review->image_path}}</p>
         <small>vehicle:</small>
         <p>{{$review->vehicle_id}}</p>
-        <small>coordinates:</small>
-        <p>{{$review->coordinates}}</p>
+        <p>lng: {{$review->lng}}</p>
+        <p>lat: {{$review->lat}}</p>
         <small>Created on {{$review->created_at}}</small>
     @else
         review not found

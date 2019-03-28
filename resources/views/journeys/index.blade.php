@@ -43,8 +43,8 @@
         </form>
     </div>
 </div>
-@if(!is_null($journeys))
-    @if(count($journeys)>0) 
+
+@if(!is_null($journeys)) 
         @foreach($journeys as $journey)
         <div class="well">
             <a href="/journeys/{{$journey->id}}">{{$journey->id}}</a></h3>
@@ -62,6 +62,5 @@
         {{ $journeys->links() }}
     @else
         <p>No journeys found</p>
-    @endif
 @endif
 @endsection
