@@ -10,7 +10,10 @@
         <small>rating:</small>
         <p>{{$review->rating}}</p>
         <small>img:</small>
-        <p>{{$review->image_path}}</p>
+        <p><?php
+        $img = $review->img_path;
+        echo '<img src="data:image/jpeg;base64,' . $img . '" />';
+        ?></p>
         <small>vehicle:</small>
         <p>{{$review->vehicle_id}}</p>
         <small>coordinates:</small>
@@ -20,3 +23,4 @@
         review not found
     @endif
 @endsection
+
