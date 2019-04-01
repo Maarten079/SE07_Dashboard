@@ -87,7 +87,6 @@
         <hr>
     </div>
     @endforeach 
-    {{ $reviews->links() }}
     @else
     <p>No reviews found</p>
 @endif

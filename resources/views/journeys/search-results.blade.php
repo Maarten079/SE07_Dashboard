@@ -59,7 +59,6 @@
             <hr>
         </div>
         @endforeach 
-        {{ $journeys->links() }}
     @else
         <p>No journeys found</p>
 @endif

@@ -21,6 +21,10 @@ Route::resource('reviews', 'ReviewsController');
 
 Route::resource('journeys', 'JourneysController');
 
+Route::resource('maps', 'MapsController');
+
 Route::post('/search-reviews', 'SearchController@filterReviews');
 
-Route::post('/search-journey', 'SearchController@filterJourneys');
+Route::post('/search-journeys', 'SearchController@filterJourneys');
+
+Route::post('/search-reviews-for-map', 'SearchController@filterReviewsForMap');

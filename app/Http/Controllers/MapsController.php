@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Journey;
 use App\Review;
-use DB;
 
-class JourneysController extends Controller
+class MapsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,8 @@ class JourneysController extends Controller
      */
     public function index()
     {
-        $journeys = Journey::orderBy('journey_date', 'DESC')->paginate(15);
-
-        return view('journeys.index')->with('journeys', $journeys);
+        $reviews = Review::all();
+        return view('maps.index')->with('reviews', $reviews);
     }
 
     /**
@@ -50,9 +47,7 @@ class JourneysController extends Controller
      */
     public function show($id)
     {
-        $journey = Journey::find($id);
-
-        return view('journeys.show')->with('journey', $journey);
+        //
     }
 
     /**
