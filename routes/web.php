@@ -28,3 +28,5 @@ Route::post('/search-reviews', 'SearchController@filterReviews');
 Route::post('/search-journeys', 'SearchController@filterJourneys');
 
 Route::post('/search-reviews-for-map', 'SearchController@filterReviewsForMap');
+
+Route::post('/search-statistics', 'SearchController@filterStatistics');
