@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Journey;
 use Illuminate\Http\Request;
 
 // Used to call model functions 
@@ -20,11 +21,34 @@ class ReviewsController extends Controller
         return view('reviews.index')->with('reviews', $reviews);
     }
 
+    /*
+     * Connect new reviews to journeys
+     *
+     * */
+    public function updateReviews()
+    {
+        $reviews = Review::where('journey_id', '=', null)->get();
+
+        foreach ($reviews as $review)
+        {
+            $journey = Journey::where('journey_date', '<=', $review['created_at'])
+                            ->orderBy('journey_date', 'DESC')
+                            ->first();
+
+            $review->journey_id = $journey->id;
+
+            $review->save();
+        }
+
+            return view('pages.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //

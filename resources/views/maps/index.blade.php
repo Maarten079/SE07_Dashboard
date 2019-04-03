@@ -1,4 +1,4 @@
-@extends('layouts.maps-app') 
+@extends('layouts.app')
 @section('content')
 <h1>
   Map

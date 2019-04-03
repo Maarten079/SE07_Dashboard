@@ -21,13 +21,22 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Maps -->
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 800px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Home
+                <a class="navbar-brand" href="{{ url('/updateReviews') }}">
+                    Update reviews
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -37,6 +46,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         {{-- @auth --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/reviews">Reviews</a>
                         </li>

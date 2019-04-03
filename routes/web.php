@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/updateReviews', 'ReviewsController@updateReviews');
+
 Route::resource('reviews', 'ReviewsController');
 
 Route::resource('journeys', 'JourneysController');
