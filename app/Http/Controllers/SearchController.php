@@ -45,7 +45,7 @@ class SearchController extends Controller
     {
         $positivereviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
             ->where('created_at', 'like', '%' . $request->input('date') . '%')
-            ->where('rating', '=', 0)
+            ->where('rating', '=', 2)
             ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
             ->count();
 
@@ -57,7 +57,7 @@ class SearchController extends Controller
 
         $negativereviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
             ->where('created_at', 'like', '%' . $request->input('date') . '%')
-            ->where('rating', '=', 2)
+            ->where('rating', '=', 0)
             ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
             ->count();
 
