@@ -21,6 +21,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Maps -->
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 800px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+    </style>
 </head>
 <body>
     <div id="app">

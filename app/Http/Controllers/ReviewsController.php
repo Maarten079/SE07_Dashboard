@@ -27,20 +27,20 @@ class ReviewsController extends Controller
      * */
     public function updateReviews()
     {
-        $reviews = Review::where('journey_id', '=', null);
+        $reviews = Review::where('journey_id', '=', null)->get();
 
-        foreach ($reviews as $r)
+        foreach ($reviews as $review)
         {
-            $journey = Journey::where('created_at', '<=', $r['created_at'])
+            $journey = Journey::where('journey_date', '<=', $review['created_at'])
                             ->orderBy('journey_date', 'DESC')
-                            ->limit(1)->count();
+                            ->first();
 
+            $review->journey_id = $journey->id;
 
-            $r->journey_id = $journey['id'];
+            $review->save();
         }
 
-
-        return $reviews;
+            return view('pages.index');
     }
 
     /**
