@@ -80,14 +80,14 @@
         @if(isset($review->lng))
             <small>lng: {{$review->lng}}</small>
         @endif
-        
+
         @if(isset($review->lat))
             <small>lat: {{$review->lat}}</small>
         @endif
         <hr>
     </div>
-    @endforeach 
-    {{ $reviews->links() }}
+    @endforeach
+
     @else
     <p>No reviews found</p>
 @endif
