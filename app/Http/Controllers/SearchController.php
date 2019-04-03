@@ -93,19 +93,19 @@ class SearchController extends Controller
     public function filterStatistics(Request $request, Review $reviews)
     {
         $positivereviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
-            ->where('created_at', 'like', '%' . $request->input('date') . '%')
+            ->where('created_at', '>=',  $request->input('date'))
             ->where('rating', '=', 2)
             ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
             ->count();
 
         $neutralreviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
-            ->where('created_at', 'like', '%' . $request->input('date') . '%')
+            ->where('created_at', '>=', $request->input('date'))
             ->where('rating', '=', 1)
             ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
             ->count();
 
         $negativereviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
-            ->where('created_at', 'like', '%' . $request->input('date') . '%')
+            ->where('created_at', '>=', $request->input('date'))
             ->where('rating', '=', 0)
             ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
             ->count();
