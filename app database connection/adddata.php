@@ -3,10 +3,10 @@ include 'conn.php';
 
 $message=mysqli_real_escape_string($conn,  $_POST['message']);
 $rating=mysqli_real_escape_string($conn, $_POST['rating']);
-$img_path='test';
+$img_path=$_POST['img_path'];
 $vehicle_id=mysqli_real_escape_string($conn, $_POST['vehicle_id']);
-$lng=23.53;
-$lat=12.23;
+$lng=$_POST['lng'];
+$lat=$_POST['lat'];
 
 $journey_query = mysqli_query($conn, "SELECT id 
                           FROM `journeys`
