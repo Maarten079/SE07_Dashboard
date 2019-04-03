@@ -17,8 +17,8 @@
                 <form action="{{url('/search-statistics')}}" method="POST" class="mb-3">
                     @csrf
                     <div class="form-group">
-                        <label for="messageInput">message:</label>
-                        <input class="form-control mb-3" id="messageInput" type="text" name="message" placeholder="review message">
+                        <label for="journeyInput">journey:</label>
+                        <input class="form-control mb-3" id="journeyInput" type="text" name="journey" placeholder="journey number">
                     </div>
                     <div class="form-group">
                         <label for="dateInput">date:</label>

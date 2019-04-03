@@ -90,29 +90,35 @@ class SearchController extends Controller
             return view('maps.index')->with('reviews', $reviews);
     }
 
-    public function filterStatistics(Request $request, Review $reviews)
+    public function filterStatistics(Request $request)
     {
-        $positivereviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
-            ->where('created_at', '>=',  $request->input('date'))
-            ->where('rating', '=', 2)
-            ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
-            ->count();
+        $negativeReviews = Review::where('rating', '0')->get();
+        $neutralReviews = Review::where('rating', '1')->get();
+        $positiveReviews = Review::where('rating', '2')->get();
 
-        $neutralreviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
-            ->where('created_at', '>=', $request->input('date'))
-            ->where('rating', '=', 1)
-            ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
-            ->count();
+        if($request->input('date') !== NULL){
+            $negativeReviews = $negativeReviews->where('created_at', '>=', $request->input('date'));
+            $neutralReviews = $neutralReviews->where('created_at', '>=', $request->input('date'));
+            $positiveReviews = $positiveReviews->where('created_at', '>=', $request->input('date'));
+        }
 
-        $negativereviews = Review::where('message', 'like', '%' . $request->input('message') . '%')
-            ->where('created_at', '>=', $request->input('date'))
-            ->where('rating', '=', 0)
-            ->where('vehicle_id', 'like', '%'. $request->input('vehicle') .'%')
-            ->count();
+        if($request->input('journey') !== NULL){
+            $negativeReviews = $negativeReviews->where('journey_id', $request->input('journey'));
+            $neutralReviews = $neutralReviews->where('journey_id', $request->input('journey'));
+            $positiveReviews = $positiveReviews->where('journey_id', $request->input('journey'));
+        }
+        
+        if($request->input('vehicle') !== NULL){
+            $negativeReviews = $negativeReviews->where('vehicle_id', $request->input('vehicle'));
+            $neutralReviews = $neutralReviews->where('vehicle_id', $request->input('vehicle'));
+            $positiveReviews = $positiveReviews->where('vehicle_id', $request->input('vehicle'));
+        }
+
+        
 
         $weekChart = new userReviewsChart;
         $weekChart->labels(['Positive', 'Neutral', 'Negative']);
-        $weekChart->dataset('', 'bar', [$positivereviews, $neutralreviews, $negativereviews])
+        $weekChart->dataset('', 'bar', [$positiveReviews->count(), $neutralReviews->count(), $negativeReviews->count()])
             ->color('#0077ff')
             ->backgroundColor('#0077ff');
         $weekChart->loaderColor('#0077ff');

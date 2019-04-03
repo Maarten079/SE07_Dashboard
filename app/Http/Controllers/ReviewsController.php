@@ -40,7 +40,7 @@ class ReviewsController extends Controller
             $review->save();
         }
 
-            return view('pages.index');
+            return redirect('/reviews');
     }
 
     /**
