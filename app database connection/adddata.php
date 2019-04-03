@@ -15,7 +15,7 @@ $journey_query = mysqli_query($conn, "SELECT id
                           ORDER BY journey_date DESC
                           LIMIT 1");
 
-$journey_row = mysqli_fetch_array($journey_query);
+$journey_id = mysqli_fetch_object($journey_query);
 
 $journey_id = $journey_row['id'];
 
