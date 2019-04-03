@@ -53,3 +53,5 @@ Route::post('/review', function(Request $request){
 
   $review->save();
 });
+
+Route::post('/search-statistics', 'SearchController@filterStatistics');
