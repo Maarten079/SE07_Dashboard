@@ -58,6 +58,8 @@ Route::post('/review', function(Request $request){
   $review->img_path = $imageName;
 
   $review->save();
+
+  return response()->json('Succes');
 });
 
 Route::post('/search-statistics', 'SearchController@filterStatistics');
