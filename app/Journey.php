@@ -10,4 +10,7 @@ class Journey extends Model
     {
         return $this->hasMany('App\Review', 'id');
     }
+    public function vehicle(){
+        return $this->hasOne('App\Vehicle', 'vehicle_id');
+    }
 }

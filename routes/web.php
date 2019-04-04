@@ -13,6 +13,7 @@
 use Illuminate\Http\Request;
 use App\Review;
 use App\Journey;
+use App\Vehicle;
 use Carbon\Carbon;
 
 Route::get('/', 'PagesController@index');
@@ -36,6 +37,13 @@ Route::post('/search-journeys', 'SearchController@filterJourneys');
 Route::post('/search-reviews-for-map', 'SearchController@filterReviewsForMap');
 
 Route::post('/review', function(Request $request){
+  // check if vehicle exists
+  $vehicle = Vehicle::find($request->input('vehicle_id'));
+  if($vehicle == null){
+    return response()->json('Fail');
+  }
+  
+
   // Create new review object
   $review = new Review;
 
