@@ -37,13 +37,11 @@ Route::post('/search-journeys', 'SearchController@filterJourneys');
 Route::post('/search-reviews-for-map', 'SearchController@filterReviewsForMap');
 
 Route::post('/review', function(Request $request){
-  // check if vehicle exists
+  // Check if valid vehicle_id
   $vehicle = Vehicle::find($request->input('vehicle_id'));
   if($vehicle == null){
-    return response()->json('Fail');
+    return response()->json('Error: Wrong vehicle ID');
   }
-  
-
   // Create new review object
   $review = new Review;
 
@@ -52,22 +50,22 @@ Route::post('/review', function(Request $request){
   $review->vehicle_id = $request->input('vehicle_id');
   $review->lng = $request->input('lng');
   $review->lat = $request->input('lat');
-
-  $journey = Journey::where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->firstOrFail();
-
+  // Find closes journey
+  $journey = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->firstOrFail(); 
   $review->journey_id = $journey->id;
 
-  $image = $request->input('img_path');  // your base64 encoded
-  $image = str_replace('data:image/png;base64,', '', $image);
-  $image = str_replace(' ', '+', $image);
-  $imageName = str_random(10).'.'.'png';
-  File::put(storage_path(). '/' . $imageName, base64_decode($image));
-
+  $imageName = '';
+  $image = $request->input('img_path');  // Your base64 encoded
+  if($image != ''){
+    $image = str_replace('data:image/png;base64,', '', $image);
+    $image = str_replace(' ', '+', $image);
+    $imageName = str_random(10).'.'.'png';
+    File::put(storage_path(). '/' . $imageName, base64_decode($image));
+  }
   $review->img_path = $imageName;
 
   $review->save();
-
-  return response()->json('Succes');
+  return response()->json('Thank you for your review');
 });
 
 Route::post('/search-statistics', 'SearchController@filterStatistics');
