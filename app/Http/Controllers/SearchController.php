@@ -10,15 +10,35 @@ use App\Charts\userReviewsChart;
 class SearchController extends Controller
 {
     public function filterReviews(Request $request){
+        // Create new query
+        $reviews = Review::query();
+
         // Get the results where $request inputs appear in tupels and store it or them in $reviews
         if($request->input('searchtype') == "guess"){
-            $reviews = Review::orderBy('created_at', 'DESC')->where('id', 'like', '%' . $request->input('id') . '%')->where('message', 'like', '%' . $request->input('message') . '%')->where('created_at', 'like', '%' . $request->input('date') . '%')->where('rating', 'like', '%' . $request->input('rating') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%');
+            if($request->input('id') !== NULL){
+                $reviews = $reviews->where('id', 'like', '%'.$request->input('id').'%');
+            }
+
+            if($request->input('message') !== NULL){
+                $reviews = $reviews->where('message', 'like', '%'.$request->input('message').'%');
+            }
+
+            if($request->input('date') !== NULL){
+
+                $reviews = $reviews->where('created_at', 'like', '%'.$request->input('date').'%');
+            }
+
+            if($request->input('rating') !== NULL){
+                $reviews = $reviews->where('rating', $request->input('rating'));
+            }
+
+            if($request->input('vehicle') !== NULL){
+                $reviews = $reviews->where('vehicle_id', '%'.$request->input('vehicle').'%');
+            }
         }
+
         // Get the results where $request inputs exactly match in tupels and store it or them in $reviews
         else if($request->input('searchtype') == "exact"){
-
-            $reviews = Review::query();
-
             if($request->input('id') !== NULL){
                 $reviews = $reviews->where('id', $request->input('id'));
             }
@@ -39,25 +59,46 @@ class SearchController extends Controller
             if($request->input('vehicle') !== NULL){
                 $reviews = $reviews->where('vehicle_id', $request->input('vehicle'));
             }
-
         }
+
         else{
             Review::report($exception);
         }
 
         $reviews = $reviews->get();
 
+        dd($reviews);
+
         return view('reviews.search-results')->with('reviews', $reviews);
     }
 
     public function filterJourneys(Request $request, Journey $journeys){
+        // Create new query
+        $journeys = Journey::query();
+        
         if($request->input('searchtype') == "guess"){
-            $journeys = Journey::orderBy('journey_date', 'DESC')->where('id', 'like', '%' . $request->input('id') . '%')->where('journeynumber', 'like', '%' . $request->input('journey') . '%')->where('journey_date', 'like', '%' . $request->input('date') . '%')->where('lineplanningnumber', 'like', '%' . $request->input('line') . '%')->where('vehicle_id', 'like', '%' . $request->input('vehicle') . '%');
+            if($request->input('id') !== NULL){
+                $journeys = $journeys->where('id', '%'.$request->input('id').'%');
+            }
+
+            if($request->input('journey') !== NULL){
+                $journeys = $journeys->where('journeynumber', '%'.$request->input('journey').'%');
+            }
+
+            if($request->input('line') !== NULL){
+                $journeys = $journeys->where('lineplanningnumber', '%'.$request->input('line').'%');
+            }
+
+            if($request->input('date') !== NULL){
+                $journeys = $journeys->where('journey_date', 'like', '%'.$request->input('date').'%');
+            }
+
+            if($request->input('vehicle') !== NULL){
+                $journeys = $journeys->where('vehicle_id', '%'.$request->input('vehicle').'%');
+            }
         }
 
         else if($request->input('searchtype') == "exact"){
-            $journeys = Journey::query();
-
             if($request->input('id') !== NULL){
                 $journeys = $journeys->where('id', $request->input('id'));
             }
@@ -81,7 +122,7 @@ class SearchController extends Controller
         else{
             Journey::report($exception);
         }
-
+            // Return the view with the found journeys
             return view('journeys.index')->with('journeys', $journeys);
             }
 
