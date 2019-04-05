@@ -8,7 +8,16 @@
         <small>message:</small>
         <p>{{$review->message}}</p>
         <small>rating:</small>
-        <p>{{$review->rating}}</p>
+        <p>
+            <?php
+            if ($review->rating == '0')
+                echo 'bad'; 
+            elseif ($review->rating == '1')
+                echo 'neutral'; 
+            elseif ($review->rating == '2')
+                echo 'good';
+        ?>
+        </p>
         <small>img:</small>
         <p>{{$review->image_path}}</p>
         <small>vehicle:</small>

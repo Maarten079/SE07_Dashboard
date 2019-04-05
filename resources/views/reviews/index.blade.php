@@ -63,7 +63,16 @@
         @endif
 
         @if(isset($review->rating))
-            <small>rating: {{$review->rating}}</small>
+            <small>rating: 
+                <?php
+                    if ($review->rating == '0')
+                        echo 'bad'; 
+                    elseif ($review->rating == '1')
+                        echo 'neutral'; 
+                    elseif ($review->rating == '2')
+                        echo 'good';
+                ?>
+            </small>
             <br>
         @endif
 
