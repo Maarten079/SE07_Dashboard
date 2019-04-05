@@ -20,7 +20,7 @@
         </p>
         <small>img:</small>
         <p> @if(!is_null($review->img_path))
-             <img src="/storage/{{$review->img_path}}" alt="image here" style="width: 50%; height: 50%;">
+             <img src="/storage/{{$review->img_path}}" alt="This image is not correctly uploaded" style="width: 50%; height: 50%;">
             @else No Image
             @endif
         </p>
