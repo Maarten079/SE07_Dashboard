@@ -7,7 +7,7 @@
   @csrf
   <div class="form-group">
     <label for="dateInput">Show reviews since:</label>
-    <input class="form-control mb-3" id="dateInput" type="date" name="date">
+    <input class="form-control mb-3" id="dateInput" type="date" name="date" required>
   </div>
   <button type="submit" class="btn btn-primary mb-2">Submit</button>
 </form>
