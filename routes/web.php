@@ -50,11 +50,17 @@ Route::post('/review', function(Request $request){
   $review->vehicle_id = $request->input('vehicle_id');
   $review->lng = $request->input('lng');
   $review->lat = $request->input('lat');
-  // Find closes journey
-  //$journey = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->firstOrFail(); 
-  //$review->journey_id = $journey->id;
-  $review->journey_id = null;
-
+  // Find closes journey Carbon::now()
+  //$dateTime = '2019-03-11 06:27:09'; //test time
+  $journey_date_start = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->first();
+  $journey_date_end = Journey::orderBy('journey_date', 'desc')->where('journey_date', '>', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->first();
+  if($journey_date_end != NULL && $journey_date_start != NULL){
+    $review->journey_id = $journey_date_start->id;
+  }
+  else{
+    $review->journey_id = NULL;
+  }
+  dd($review);
   $imageName = '';
   $image = $request->input('img_path');  // Your base64 encoded
   if($image != ''){

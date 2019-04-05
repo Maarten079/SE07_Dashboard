@@ -27,16 +27,20 @@ class ReviewsController extends Controller
      * */
     public function updateReviews()
     {
-        $reviews = Review::where('journey_id', '=', null)->get();
-
+        $reviews = Review::where('journey_id', '=', NULL)->get();
+        
         foreach ($reviews as $review)
         {
-            $journey = Journey::where('journey_date', '<=', $review['created_at'])
-                            ->orderBy('journey_date', 'DESC')
-                            ->first();
-
-            $review->journey_id = $journey->id;
-
+            
+            $journey_date_start = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', $review->created_at)->where('vehicle_id', $review->vehicle_id)->first();
+            
+            $journey_date_end = Journey::orderBy('journey_date', 'desc')->where('journey_date', '>', $review->created_at)->where('vehicle_id', $review->vehicle_id)->first();
+            if($journey_date_end != NULL && $journey_date_start != NULL){
+                $review->journey_id = $journey_date_start->id;
+            }
+            else{
+                $review->journey_id = NULL;
+            }
             $review->save();
         }
 
