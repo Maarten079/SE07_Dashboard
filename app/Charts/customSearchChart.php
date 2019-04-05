@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
-class userReviewsChart extends Chart
+class customSearchChart extends Chart
 {
     /**
      * Initializes the chart.

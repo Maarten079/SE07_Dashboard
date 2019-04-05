@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Review;
 use App\Journey;
-use App\Charts\userReviewsChart;
+use App\Charts\customSearchChart;
 
 class SearchController extends Controller
 {
@@ -154,16 +154,11 @@ class SearchController extends Controller
         }
 
         
-
-        $weekChart = new userReviewsChart;
-        $weekChart->labels(['Positive', 'Neutral', 'Negative']);
-        $weekChart->dataset('', 'bar', [$positiveReviews->count(), $neutralReviews->count(), $negativeReviews->count()])
-            ->color('#0077ff')
-            ->backgroundColor('#0077ff');
-        $weekChart->loaderColor('#0077ff');
-        $weekChart->title('user reviews', '0');
-        $weekChart->displayLegend(false);
-
+        $weekChart = new customSearchChart;
+        $weekChart->labels(['Negative', 'Neutral', 'Positive'])
+                          ->dataset('Week Chart', 'bar', [$positiveReviews->count(), $neutralReviews->count(), $negativeReviews->count()])
+                          ->backgroundColor(['#FFC8C8', '#FFFFC7', '#C8FFC7']);
+        $weekChart->displayLegend(false);             
 
         return view('pages.index', compact('weekChart'));
     }
