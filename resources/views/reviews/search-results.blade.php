@@ -34,9 +34,9 @@
                     <label for="ratingInput">rating:</label>
                     <select class="form-control mb-3" id="ratingInput" name="rating">
                         <option></option>
-                        <option>Good</option>
-                        <option>Neutral</option>
-                        <option>Bad</option>
+                        <option value="2">Good</option>
+                        <option value="1">Neutral</option>
+                        <option value="0">Bad</option>
                     </select>
                 <div class="form-group">
                     Search type:<br>
