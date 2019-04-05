@@ -67,8 +67,6 @@ class SearchController extends Controller
 
         $reviews = $reviews->get();
 
-        dd($reviews);
-
         return view('reviews.search-results')->with('reviews', $reviews);
     }
 
