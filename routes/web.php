@@ -51,8 +51,9 @@ Route::post('/review', function(Request $request){
   $review->lng = $request->input('lng');
   $review->lat = $request->input('lat');
   // Find closes journey
-  $journey = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->firstOrFail(); 
-  $review->journey_id = $journey->id;
+  //$journey = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->firstOrFail(); 
+  //$review->journey_id = $journey->id;
+  $review->journey_id = null;
 
   $imageName = '';
   $image = $request->input('img_path');  // Your base64 encoded
