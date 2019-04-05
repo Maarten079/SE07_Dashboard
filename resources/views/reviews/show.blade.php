@@ -19,7 +19,7 @@
         ?>
         </p>
         <small>img:</small>
-        <p>{{$review->image_path}}</p>
+        <p> <img src="/storage/{{$review->img_path}}" alt="image here" style="width: 50%; height: 50%;"></p>
         <small>vehicle:</small>
         <p>{{$review->vehicle_id}}</p>
         <p>lng: {{$review->lng}}</p>
