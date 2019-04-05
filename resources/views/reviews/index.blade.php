@@ -76,8 +76,8 @@
             <br>
         @endif
 
-        @if(isset($review->image_path))
-            <small>img: {{$review->image_path}}</small>
+        @if(isset($review->img_path))
+            <small>img: {{$review->img_path}}</small>
             <br>
         @endif
 
