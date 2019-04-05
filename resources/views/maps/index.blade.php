@@ -7,7 +7,7 @@
   @csrf
   <div class="form-group">
     <label for="dateInput">Show reviews since:</label>
-    <input class="form-control mb-3" id="dateInput" type="date" name="date">
+    <input class="form-control mb-3" id="dateInput" type="date" name="date" required>
   </div>
   <button type="submit" class="btn btn-primary mb-2">Submit</button>
 </form>
@@ -38,7 +38,14 @@ function initMap() {
         '<small>message:</small>' +
         '<p>{{$review->message}}</p>' +
         '<small>rating:</small>' +
-        '<p>{{$review->rating}}</p>' +
+        '<p><?php
+              if ($review->rating == '0')
+                echo 'bad'; 
+              elseif ($review->rating == '1')
+                echo 'neutral'; 
+              elseif ($review->rating == '2')
+                echo 'good';
+            ?></p>' +
         '<small>img:</small>' +
         '<p>{{$review->image_path}}</p>' +
         '<small>vehicle:</small>' +
@@ -57,11 +64,11 @@ function initMap() {
                         origin: new google.maps.Point(0,0), // origin
                         anchor: new google.maps.Point(16, 32) // anchor
                       };
-          @if($review->rating == 0)
+          @if($review->rating == '0')
               icon.url = "http://maps.google.com/mapfiles/kml/paddle/red-blank.png";
-          @elseif ($review->rating == 1)
+          @elseif ($review->rating == '1')
               icon.url = "http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png";
-          @elseif ($review->rating == 2)
+          @elseif ($review->rating == '2')
               icon.url = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
           @endif
           var marker = new google.maps.Marker({position: coords, map: map, icon:icon, info: contentString});
