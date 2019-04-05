@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c68c58ea4ddab4a0db152d899f882952",
+    "content-hash": "c2624db30286971bde22369b71b89e64",
     "packages": [
         {
             "name": "balping/json-raw-encoder",
@@ -2697,7 +2697,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
