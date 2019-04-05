@@ -59,7 +59,8 @@ Route::post('/review', function(Request $request){
   if($image != ''){
     $image = str_replace('data:image/png;base64,', '', $image);
     $image = str_replace(' ', '+', $image);
-    $imageName = str_random(10).'.'.'png';
+    $dateTime = str_replace(str_split('-_: '), '',Carbon::now());
+    $imageName = $dateTime.'_'.str_random(4).'.'.'png';
     File::put(storage_path(). '/' . $imageName, base64_decode($image));
   }
   $review->img_path = $imageName;
