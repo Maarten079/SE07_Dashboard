@@ -31,14 +31,15 @@ class ReviewsController extends Controller
         
         foreach ($reviews as $review)
         {
-            
+            // Finds the colsest journey before and after the review has been made.
             $journey_date_start = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', $review->created_at)->where('vehicle_id', $review->vehicle_id)->first();
-            
             $journey_date_end = Journey::orderBy('journey_date', 'desc')->where('journey_date', '>', $review->created_at)->where('vehicle_id', $review->vehicle_id)->first();
+            // Check if the there has been a ride before and or after the ride.
             if($journey_date_end != NULL && $journey_date_start != NULL){
                 $review->journey_id = $journey_date_start->id;
             }
             else{
+                // If there is no date with the corresponding vehicle add date later in ReviewsController by pressing the connect review button on the site
                 $review->journey_id = NULL;
             }
             $review->save();

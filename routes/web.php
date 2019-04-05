@@ -50,17 +50,20 @@ Route::post('/review', function(Request $request){
   $review->vehicle_id = $request->input('vehicle_id');
   $review->lng = $request->input('lng');
   $review->lat = $request->input('lat');
-  // Find closes journey Carbon::now()
+
   //$dateTime = '2019-03-11 06:27:09'; //test time
+  // Finds the colsest journey before and after the review has been made.
   $journey_date_start = Journey::orderBy('journey_date', 'desc')->where('journey_date', '<=', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->first();
   $journey_date_end = Journey::orderBy('journey_date', 'desc')->where('journey_date', '>', Carbon::now())->where('vehicle_id', $request->input('vehicle_id'))->first();
+  // Check if the there has been a ride before and or after the ride.
   if($journey_date_end != NULL && $journey_date_start != NULL){
     $review->journey_id = $journey_date_start->id;
   }
   else{
-    $review->journey_id = NULL;
+    // If there is no date with the corresponding vehicle add date later in ReviewsController by pressing the connect review button on the site
+    $review->journey_id = NULL; 
   }
-  dd($review);
+
   $imageName = '';
   $image = $request->input('img_path');  // Your base64 encoded
   if($image != ''){
