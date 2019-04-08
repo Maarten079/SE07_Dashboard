@@ -37,7 +37,7 @@
         <div class="col-md-8">
 
             <div class="card">
-                <div class="card-header">User reviews of last week</div>
+                <div class="card-header">User reviews:</div>
 
                 <div class="card-body">
                     {!! $weekChart->container() !!}

@@ -33,7 +33,7 @@ class SearchController extends Controller
             }
 
             if($request->input('vehicle') !== NULL){
-                $reviews = $reviews->where('vehicle_id', '%'.$request->input('vehicle').'%');
+                $reviews = $reviews->where('vehicle_id','like', '%'.$request->input('vehicle').'%');
             }
         }
 
@@ -76,15 +76,15 @@ class SearchController extends Controller
         
         if($request->input('searchtype') == "guess"){
             if($request->input('id') !== NULL){
-                $journeys = $journeys->where('id', '%'.$request->input('id').'%');
+                $journeys = $journeys->where('id', 'like', '%'.$request->input('id').'%');
             }
 
             if($request->input('journey') !== NULL){
-                $journeys = $journeys->where('journeynumber', '%'.$request->input('journey').'%');
+                $journeys = $journeys->where('journeynumber', 'like', '%'.$request->input('journey').'%');
             }
 
             if($request->input('line') !== NULL){
-                $journeys = $journeys->where('lineplanningnumber', '%'.$request->input('line').'%');
+                $journeys = $journeys->where('lineplanningnumber', 'like', '%'.$request->input('line').'%');
             }
 
             if($request->input('date') !== NULL){
@@ -92,7 +92,7 @@ class SearchController extends Controller
             }
 
             if($request->input('vehicle') !== NULL){
-                $journeys = $journeys->where('vehicle_id', '%'.$request->input('vehicle').'%');
+                $journeys = $journeys->where('vehicle_id', 'like', '%'.$request->input('vehicle').'%');
             }
         }
 
@@ -120,12 +120,14 @@ class SearchController extends Controller
         else{
             Journey::report($exception);
         }
+            $journeys = $journeys->get();
+
             // Return the view with the found journeys
-            return view('journeys.index')->with('journeys', $journeys);
+            return view('journeys.search-results')->with('journeys', $journeys);
             }
 
     public function filterReviewsForMap(Request $request, Review $reviews){
-            $reviews = Review::where('created_at', '>=', $request->input('date'))->get();
+            $reviews = Review::where('created_at','like', '%'.$request->input('date').'%')->get();
             return view('maps.index')->with('reviews', $reviews);
     }
 
